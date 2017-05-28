@@ -1,0 +1,22 @@
+Started by user [8mha:////4PoKLiuh1ZAUw0W3XXYa06KVjM/jTVPI8Bb9asVRWEIMAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/sample
+Cloning the remote Git repository
+Cloning repository http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git
+ > git init /var/jenkins_home/workspace/sample # timeout=10
+Fetching upstream changes from http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git # timeout=10
+Fetching upstream changes from http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 9b6025f3fa1889ac4853b122504ac46ac7539e12 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 9b6025f3fa1889ac4853b122504ac46ac7539e12
+First time build. Skipping changelog.
+Finished: SUCCESS
