@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.11">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>admin</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.8">
+      <libraries/>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+    <jenkins.model.InterruptedBuildAction>
+      <causes class="com.google.common.collect.ImmutableList">
+        <jenkins.model.CauseOfInterruption_-UserInterruption>
+          <user>admin</user>
+        </jenkins.model.CauseOfInterruption_-UserInterruption>
+      </causes>
+    </jenkins.model.InterruptedBuildAction>
+  </actions>
+  <queueId>21</queueId>
+  <timestamp>1496007490346</timestamp>
+  <startTime>1496007490356</startTime>
+  <result>ABORTED</result>
+  <duration>105206</duration>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>ABORTED</result>
+    <script>#!groovy
+
+node(&apos;node&apos;) { ansiColor(&apos;xterm&apos;) {
+env.PATH = &quot;${tool(&apos;NODEJS6.10.3&apos;)}/bin:${env.PATH}&quot;
+
+  try {
+    stage(&apos;Checkout&apos;) {
+      checkout scm
+      sh &quot;git branch -D ${env.BRANCH_NAME} || true &amp;&amp; git checkout -b ${env.BRANCH_NAME}&quot;
+      sh &apos;sudo git clean -d -f -x&apos;
+    }
+
+    stage(&apos;Install&apos;) {
+      sh(&apos;npm install&apos;)
+    }
+
+    stage(&apos;Lint&apos;) {
+      sh &apos;npm run lint&apos;
+    }
+
+    stage(&apos;Build&apos;) {
+      sh(&apos;npm run build&apos;)
+    }
+
+    stage(&apos;Unit Test&apos;) {
+      archiveTests(&apos;**/test-results.xml&apos;) {
+        sh(&apos;npm run test&apos;)
+      }
+    }
+  } catch (err) {
+    currentBuild.result = &apos;FAILURE&apos;
+    throw err
+  } finally {
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
+  }
+} }
+
+def notifyBuild(String buildStatus = &apos;STARTED&apos;) {
+  // Build status of null means successful
+  buildStatus =  buildStatus ?: &apos;SUCCESSFUL&apos;
+
+  // Default values
+  def subject = &quot;${buildStatus}: Job &apos;${env.JOB_NAME} [${env.BUILD_NUMBER}]&apos;&quot;
+  def details = &quot;&quot;&quot;&lt;p&gt;&apos;${buildStatus}&apos;: Job &apos;${env.JOB_NAME} [${env.BUILD_NUMBER}]&apos;:&lt;/p&gt;
+  &lt;p&gt;Check console output at &apos;&lt;a href=&apos;${env.BUILD_URL}&apos;&gt;${env.JOB_NAME} [${env.BUILD_NUMBER}]&lt;/a&gt;&apos;&lt;/p&gt;&quot;&quot;&quot;
+
+  // Send notifications
+  emailext (
+    subject: subject,
+    body: details,
+    recipientProviders: [[$class: &apos;DevelopersRecipientProvider&apos;]],
+    attachLog: true
+  )
+}
+
+def archiveTests(testResults, block) {
+  try {
+    block()
+  } finally {
+    step([$class: &apos;JUnitResultArchiver&apos;, testResults: testResults])
+  }
+}
+</script>
+    <loadedScripts class="map"/>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>108245718</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>88069441</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>181497084</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>109483555</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>19155412</long>
+      </entry>
+    </timings>
+    <sandbox>true</sandbox>
+    <iota>5</iota>
+    <head>1:5</head>
+  </execution>
+  <checkouts class="hudson.util.PersistedList"/>
+</flow-build>

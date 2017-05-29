@@ -1,0 +1,11 @@
+commit 1e5bb8c7b3ee461836a53024430737b388f63a82
+tree d91e3c1b27ef6f57e1b8fcb318edc43c86bd0a69
+parent 17e200f16b3ca1556c932dea0a3bf7621f6e885e
+author George Maggessy <gmaggessy@medallia.com> 2017-05-28 14:50:56 -0700
+committer George Maggessy <gmaggessy@medallia.com> 2017-05-28 14:50:56 -0700
+
+    simplify checkout
+
+
+
+:100644 100644 25cb05d6a2a7ca6601e42d90958dd0cbcee1cfb4 8d3f7c61d072d5dbd0400bfa4fed3a329491bca0 M	Jenkinsfile

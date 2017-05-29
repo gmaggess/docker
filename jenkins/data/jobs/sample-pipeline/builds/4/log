@@ -1,0 +1,68 @@
+Started by user [8mha:////4PoKLiuh1ZAUw0W3XXYa06KVjM/jTVPI8Bb9asVRWEIMAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Obtained Jenkinsfile from git http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+WorkflowScript: 4: Not a valid section definition: "env.PATH = "${tool('NODEJS6.10.3')}/bin:${env.PATH}"". Some extra configuration is required. @ line 4, column 3.
+     env.PATH = "${tool('NODEJS6.10.3')}/bin:${env.PATH}"
+     ^
+
+WorkflowScript: 6: Not a valid section definition: "try {
+    stage('Checkout') {
+      checkout scm
+      sh "git branch -D ${env.BRANCH_NAME} || true && git checkout -b ${env.BRANCH_NAME}"
+      sh 'sudo git clean -d -f -x'
+    }
+
+    stage('Install') {
+      sh('npm install')
+    }
+
+    stage('Lint') {
+      sh 'npm run lint'
+    }
+
+    stage('Build') {
+      sh('npm run build')
+    }
+
+    stage('Unit Test') {
+      archiveTests('**/test-results.xml') {
+        sh('npm run test')
+      }
+    }
+  } catch (err) {
+    currentBuild.result = 'FAILURE'
+    throw err
+  } finally {
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
+  }". Some extra configuration is required. @ line 6, column 3.
+     try {
+     ^
+
+WorkflowScript: 3: Missing required section "stages" @ line 3, column 1.
+   pipeline {
+   ^
+
+WorkflowScript: 3: Missing required section "agent" @ line 3, column 1.
+   pipeline {
+   ^
+
+4 errors
+
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:310)
+	at org.codehaus.groovy.control.CompilationUnit.applyToPrimaryClassNodes(CompilationUnit.java:1073)
+	at org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:591)
+	at org.codehaus.groovy.control.CompilationUnit.processPhaseOperations(CompilationUnit.java:569)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:546)
+	at groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:298)
+	at groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:268)
+	at groovy.lang.GroovyShell.parseClass(GroovyShell.java:688)
+	at groovy.lang.GroovyShell.parse(GroovyShell.java:700)
+	at org.jenkinsci.plugins.workflow.cps.CpsGroovyShell.doParse(CpsGroovyShell.java:129)
+	at org.jenkinsci.plugins.workflow.cps.CpsGroovyShell.reparse(CpsGroovyShell.java:123)
+	at org.jenkinsci.plugins.workflow.cps.CpsFlowExecution.parseScript(CpsFlowExecution.java:515)
+	at org.jenkinsci.plugins.workflow.cps.CpsFlowExecution.start(CpsFlowExecution.java:478)
+	at org.jenkinsci.plugins.workflow.job.WorkflowRun.run(WorkflowRun.java:240)
+	at hudson.model.ResourceController.execute(ResourceController.java:98)
+	at hudson.model.Executor.run(Executor.java:405)
+Finished: FAILURE

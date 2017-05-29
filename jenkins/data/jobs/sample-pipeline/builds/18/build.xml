@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.11">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>admin</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.8">
+      <libraries/>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+    <org.jenkinsci.plugins.workflow.cps.EnvActionImpl plugin="workflow-cps@2.32">
+      <env class="tree-map">
+        <entry>
+          <string>PATH</string>
+          <string>/usr/bin/nodejs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</string>
+        </entry>
+      </env>
+    </org.jenkinsci.plugins.workflow.cps.EnvActionImpl>
+    <hudson.plugins.git.util.BuildData plugin="git@3.3.0">
+      <buildsByBranchName>
+        <entry>
+          <string>refs/remotes/origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.4.6">
+              <sha1>17e200f16b3ca1556c932dea0a3bf7621f6e885e</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>18</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@3.3.0">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>refs/remotes/origin/master</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/var/jenkins_home/workspace/sample-pipeline</ws>
+    </hudson.plugins.git.GitTagAction>
+    <org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState plugin="workflow-scm-step@2.4">
+      <revisionStates>
+        <entry>
+          <string>git http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git</string>
+          <hudson.scm.SCMRevisionState_-None/>
+        </entry>
+      </revisionStates>
+    </org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState>
+  </actions>
+  <queueId>35</queueId>
+  <timestamp>1496008186700</timestamp>
+  <startTime>1496008186712</startTime>
+  <result>FAILURE</result>
+  <duration>4896</duration>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>FAILURE</result>
+    <script>#!groovy
+
+node(&apos;master&apos;) {
+env.PATH = &quot;${tool(&apos;NODEJS6.10.3&apos;)}/bin:${env.PATH}&quot;
+
+  try {
+    stage(&apos;Checkout&apos;) {
+      checkout scm
+      sh &quot;git branch -D ${env.BRANCH_NAME} || true &amp;&amp; git checkout -b ${env.BRANCH_NAME}&quot;
+      sh &apos;sudo git clean -d -f -x&apos;
+    }
+
+    stage(&apos;Install&apos;) {
+      sh(&apos;npm install&apos;)
+    }
+
+    stage(&apos;Lint&apos;) {
+      sh &apos;npm run lint&apos;
+    }
+
+    stage(&apos;Build&apos;) {
+      sh(&apos;npm run build&apos;)
+    }
+
+    stage(&apos;Unit Test&apos;) {
+      archiveTests(&apos;**/test-results.xml&apos;) {
+        sh(&apos;npm run test&apos;)
+      }
+    }
+  } catch (err) {
+    currentBuild.result = &apos;FAILURE&apos;
+    throw err
+  } finally {
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
+  }
+}
+
+def notifyBuild(String buildStatus = &apos;STARTED&apos;) {
+  // Build status of null means successful
+  buildStatus =  buildStatus ?: &apos;SUCCESSFUL&apos;
+
+  // Default values
+  def subject = &quot;${buildStatus}: Job &apos;${env.JOB_NAME} [${env.BUILD_NUMBER}]&apos;&quot;
+  def details = &quot;&quot;&quot;&lt;p&gt;&apos;${buildStatus}&apos;: Job &apos;${env.JOB_NAME} [${env.BUILD_NUMBER}]&apos;:&lt;/p&gt;
+  &lt;p&gt;Check console output at &apos;&lt;a href=&apos;${env.BUILD_URL}&apos;&gt;${env.JOB_NAME} [${env.BUILD_NUMBER}]&lt;/a&gt;&apos;&lt;/p&gt;&quot;&quot;&quot;
+
+  // Send notifications
+  emailext (
+    subject: subject,
+    body: details,
+    recipientProviders: [[$class: &apos;DevelopersRecipientProvider&apos;]],
+    attachLog: true
+  )
+}
+
+def archiveTests(testResults, block) {
+  try {
+    block()
+  } finally {
+    step([$class: &apos;JUnitResultArchiver&apos;, testResults: testResults])
+  }
+}
+</script>
+    <loadedScripts class="map"/>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>388330370</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>59142320</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>1018255831</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>104343142</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>97993384</long>
+      </entry>
+    </timings>
+    <sandbox>true</sandbox>
+    <iota>16</iota>
+    <head>1:16</head>
+  </execution>
+  <checkouts class="hudson.util.PersistedList">
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>http://maggessy.myqnapcloud.com:8888/gmaggess/sample.git</url>
+            <credentialsId>gmaggess</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+      </scm>
+      <node></node>
+      <workspace>/var/jenkins_home/workspace/sample-pipeline</workspace>
+      <changelogFile>/var/jenkins_home/jobs/sample-pipeline/builds/18/changelog0.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+  </checkouts>
+</flow-build>

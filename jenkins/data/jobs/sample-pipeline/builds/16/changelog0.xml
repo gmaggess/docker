@@ -1,0 +1,11 @@
+commit 17e200f16b3ca1556c932dea0a3bf7621f6e885e
+tree 47f4da236eceafbec6864aa3074a0e38cf5bd197
+parent a90467c3e7959aaed0f78a9a967efb86f58d4986
+author George Maggessy <gmaggessy@medallia.com> 2017-05-28 11:04:58 -0700
+committer George Maggessy <gmaggessy@medallia.com> 2017-05-28 14:48:15 -0700
+
+    chore(*): add jenkins file 2
+
+
+
+:100644 100644 9f35d5b11ca9da574d4278bc46ab43a6f191f6e8 25cb05d6a2a7ca6601e42d90958dd0cbcee1cfb4 M	Jenkinsfile

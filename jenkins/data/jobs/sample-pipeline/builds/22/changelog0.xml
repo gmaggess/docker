@@ -1,0 +1,12 @@
+commit b057cdf5505667ff392eba575cf5bf7353833387
+tree de1038bf61860e5a02236de0e447466901d88596
+parent 48ced25e38cac67bf0575a229f5700ac1a604ed8
+author George Maggessy <gmaggessy@medallia.com> 2017-05-28 15:19:03 -0700
+committer George Maggessy <gmaggessy@medallia.com> 2017-05-28 15:19:03 -0700
+
+    fix test on ci
+
+
+
+:100644 100644 6b6cd121670d153493f1d7ce19bbdda2be8109d7 977e0387fb6646fe68ce52e2be6bbb7e0d2688d3 M	Jenkinsfile
+:100644 100644 5f5537edfbb01a8e9d0f3b88d391212e271fc307 5066b626e8ba70779ae35e89cffa613afb72eb34 M	package.json

@@ -6,14 +6,23 @@
   <usages>
     <entry>
       <string>sample</string>
-      <ranges>1-2</ranges>
+      <ranges>1-8</ranges>
+    </entry>
+    <entry>
+      <string>sample-pipeline</string>
+      <ranges>14-24</ranges>
     </entry>
   </usages>
   <facets>
     <com.cloudbees.plugins.credentials.fingerprints.ItemCredentialsFingerprintFacet plugin="credentials@2.1.13">
-      <timestamp>1495914557825</timestamp>
+      <timestamp>1495997713138</timestamp>
       <itemFullName>sample</itemFullName>
-      <timestamp0>1495913760729</timestamp0>
+      <timestamp0>1495997097575</timestamp0>
+    </com.cloudbees.plugins.credentials.fingerprints.ItemCredentialsFingerprintFacet>
+    <com.cloudbees.plugins.credentials.fingerprints.ItemCredentialsFingerprintFacet plugin="credentials@2.1.13">
+      <timestamp>1496034229744</timestamp>
+      <itemFullName>sample-pipeline</itemFullName>
+      <timestamp0>1496034187868</timestamp0>
     </com.cloudbees.plugins.credentials.fingerprints.ItemCredentialsFingerprintFacet>
   </facets>
 </fingerprint>

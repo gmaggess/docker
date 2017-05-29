@@ -1,0 +1,11 @@
+commit 652aa77b2cc1c51679cfb23a22eb9ea58f7912cc
+tree 36b6e4960a2602c052782a465612bc844556668c
+parent b057cdf5505667ff392eba575cf5bf7353833387
+author George Maggessy <gmaggessy@medallia.com> 2017-05-28 15:33:44 -0700
+committer George Maggessy <gmaggessy@medallia.com> 2017-05-28 15:33:44 -0700
+
+    fix test on ci
+
+
+
+:100644 100644 977e0387fb6646fe68ce52e2be6bbb7e0d2688d3 6938bddbf3d653b87d0dc13d75687158ba5c31bd M	Jenkinsfile

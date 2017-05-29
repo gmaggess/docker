@@ -1,0 +1,12 @@
+commit 48ced25e38cac67bf0575a229f5700ac1a604ed8
+tree 3ec5df07faad36e333689679fbde360757faaa2d
+parent 1e5bb8c7b3ee461836a53024430737b388f63a82
+author George Maggessy <gmaggessy@medallia.com> 2017-05-28 14:51:59 -0700
+committer George Maggessy <gmaggessy@medallia.com> 2017-05-28 14:57:03 -0700
+
+    add git clean
+
+
+
+:100644 100644 8d3f7c61d072d5dbd0400bfa4fed3a329491bca0 6b6cd121670d153493f1d7ce19bbdda2be8109d7 M	Jenkinsfile
+:100644 100644 53c768842ca88d2f1ecd5378dd5d2024cf1b3a64 53c768842ca88d2f1ecd5378dd5d2024cf1b3a64 R100	src/index.jsx	src/index.js

@@ -2,7 +2,7 @@
 <jenkins.plugins.nodejs.tools.NodeJSInstallation_-DescriptorImpl plugin="nodejs@1.2.2">
   <installations class="jenkins.plugins.nodejs.tools.NodeJSInstallation-array">
     <jenkins.plugins.nodejs.tools.NodeJSInstallation>
-      <name>node 6</name>
+      <name>NODEJS6.10.3</name>
       <home>/usr/bin/nodejs</home>
       <properties/>
     </jenkins.plugins.nodejs.tools.NodeJSInstallation>
